@@ -1,0 +1,15 @@
+loan:
+    resource:
+        path: ../src/Loan/Application/Controller/
+        namespace: App\Loan\Application\Controller
+    type: attribute
+
+client:
+    resource:
+        path: ../src/Client/Application/Controller/
+        namespace: App\Client\Application\Controller
+    type: attribute
+
+kernel:
+    resource: ../src/Kernel.php
+    type: attribute

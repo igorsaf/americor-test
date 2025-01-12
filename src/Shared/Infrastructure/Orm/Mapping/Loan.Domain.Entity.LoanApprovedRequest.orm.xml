@@ -1,0 +1,21 @@
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity name="App\Loan\Domain\Entity\LoanApprovedRequest" table="loan_approved_requests">
+        <id name="id" type="loan_approved_request_id">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="clientId" type="client_id"/>
+        <field name="loanProductId" type="loan_product_id"/>
+        <field name="loanProductName" type="loan_product_name"/>
+        <field name="loanProductTerm" type="loan_product_term"/>
+        <field name="loanProductInterestRate" type="loan_product_interest_rate" />
+        <field name="loanProductAmount" type="loan_product_amount" />
+        <field name="createdAt" type="datetime_immutable" />
+    </entity>
+
+</doctrine-mapping>

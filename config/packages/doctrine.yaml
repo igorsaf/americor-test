@@ -1,0 +1,66 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        profiling_collect_backtrace: '%kernel.debug%'
+        use_savepoints: true
+        types:
+            client_email: App\Client\Infrastructure\Orm\Types\Client\ClientEmailType
+            client_fico_rating: App\Client\Infrastructure\Orm\Types\Client\ClientFicoRatingType
+            client_first_name: App\Client\Infrastructure\Orm\Types\Client\ClientFirstNameType
+            client_id: App\Client\Infrastructure\Orm\Types\Client\ClientIdType
+            client_last_name: App\Client\Infrastructure\Orm\Types\Client\ClientLastNameType
+            client_phone: App\Client\Infrastructure\Orm\Types\Client\ClientPhoneType
+            client_ssn: App\Client\Infrastructure\Orm\Types\Client\ClientSsnType
+            client_address_city: App\Client\Infrastructure\Orm\Types\ClientAddress\ClientAddressCityType
+            client_address_state: App\Client\Infrastructure\Orm\Types\ClientAddress\ClientAddressStateType
+            client_address_street: App\Client\Infrastructure\Orm\Types\ClientAddress\ClientAddressStreetType
+            client_address_zip: App\Client\Infrastructure\Orm\Types\ClientAddress\ClientAddressZipType
+
+            loan_product_amount: App\Loan\Infrastructure\Orm\Types\LoanProduct\LoanProductAmountType
+            loan_product_id: App\Loan\Infrastructure\Orm\Types\LoanProduct\LoanProductIdType
+            loan_product_interest_rate: App\Loan\Infrastructure\Orm\Types\LoanProduct\LoanProductInterestRateType
+            loan_product_name: App\Loan\Infrastructure\Orm\Types\LoanProduct\LoanProductNameType
+            loan_product_term: App\Loan\Infrastructure\Orm\Types\LoanProduct\LoanProductTermType
+
+            loan_approved_request_id: App\Loan\Infrastructure\Orm\Types\LoanApprovedRequest\LoanApprovedRequestIdType
+
+            loan_amount: App\Loan\Infrastructure\Orm\Types\Loan\LoanAmountType
+            loan_id: App\Loan\Infrastructure\Orm\Types\Loan\LoanIdType
+            loan_interest_rate: App\Loan\Infrastructure\Orm\Types\Loan\LoanInterestRateType
+            loan_name: App\Loan\Infrastructure\Orm\Types\Loan\LoanNameType
+            loan_term: App\Loan\Infrastructure\Orm\Types\Loan\LoanTermType
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Shared/Infrastructure/Orm/Mapping'
+                prefix: 'App'
+
+when@test:
+    doctrine:
+        dbal:
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

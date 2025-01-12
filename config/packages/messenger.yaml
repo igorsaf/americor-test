@@ -1,0 +1,12 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            failed: 'doctrine://default?queue_name=failed'
+
+        routing:
+            'App\Loan\Domain\Event\LoanIssuedEvent': async
+            'App\Loan\Application\Event\LoanIssuedEmailNotification': async
+            'App\Loan\Application\Event\LoanIssuedSmsNotification': async
